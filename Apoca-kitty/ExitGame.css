@@ -1,0 +1,309 @@
+.exit-game-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100dvh;
+    background-color: #000;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+}
+
+.crt-turn-on {
+    animation: crt-turn-on 0.8s steps(60) forwards;
+    clip-path: inset(0 0 100% 0);
+}
+
+@keyframes crt-turn-on {
+    0% {
+        clip-path: inset(0 0 100% 0);
+    }
+
+    100% {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+.exit-game-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #000;
+    position: relative;
+    font-family: inherit;
+}
+
+/* Global CRT scanlines covering the whole game */
+.exit-game-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(transparent 50%,
+            rgba(0, 0, 0, 0.35) 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.exit-image-section {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem 1rem 1rem;
+}
+
+.exit-scene-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    /* Soften the retro filter so images look good */
+    filter: grayscale(60%) sepia(40%) hue-rotate(130deg) saturate(150%) brightness(1) contrast(1.2);
+    animation: crt-image-load 0.8s ease-out forwards;
+}
+
+@keyframes crt-image-load {
+    0% {
+        clip-path: inset(0 0 100% 0);
+        filter: grayscale(80%) sepia(60%) hue-rotate(130deg) saturate(250%) brightness(1.5) contrast(1.5);
+    }
+
+    100% {
+        clip-path: inset(0 0 0 0);
+        filter: grayscale(60%) sepia(40%) hue-rotate(130deg) saturate(150%) brightness(1) contrast(1.2);
+    }
+}
+
+.exit-text-section {
+    flex: 1;
+    position: relative;
+    padding: 0 4rem 2rem 4rem;
+    overflow-y: auto;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.exit-terminal-text {
+    color: #4dfbca;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+    text-shadow: 0 0 5px rgba(77, 251, 202, 0.8);
+}
+
+@media (max-width: 768px) {
+    .exit-game-container {
+        flex-direction: column;
+    }
+
+    .exit-image-section {
+        flex: 0.8;
+        padding: 1rem 0.5rem 0.5rem 0.5rem;
+    }
+
+    .exit-text-section {
+        flex: 1.2;
+        padding: 0 1rem 1rem 1rem;
+    }
+
+    .exit-terminal-text {
+        font-size: 0.95rem;
+    }
+
+    .exit-input-line {
+        margin-top: 0.5rem;
+    }
+}
+
+.exit-intro-screen {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #0d2822;
+    color: #4dfbca;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 1.1rem;
+}
+
+.exit-logo {
+    font-size: clamp(1rem, 1.5vw, 2rem);
+    text-shadow: 0 0 10px rgba(77, 251, 202, 0.8);
+}
+
+.exit-terminal-text p {
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+    letter-spacing: 2px;
+}
+
+.exit-input-line {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.exit-input {
+    background: transparent;
+    border: none;
+    color: #4dfbca;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    outline: none;
+    text-shadow: inherit;
+    letter-spacing: inherit;
+    width: auto;
+    flex-grow: 1;
+    /* Allow typing long commands */
+}
+
+.exit-cursor {
+    font-weight: bold;
+    animation: exit-blink 1s step-end infinite;
+}
+
+@keyframes exit-blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+}
+
+/* GAME OVER Screen Styling */
+.game-over-text {
+    color: #ff3333 !important;
+    text-shadow: 0 0 10px rgba(255, 51, 51, 0.8) !important;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: 6px;
+    animation: exit-blink 1.5s step-end infinite;
+}
+
+/* WIN Screen Styling */
+.win-text {
+    color: #4dfbca !important;
+    text-shadow: 0 0 10px rgba(77, 251, 202, 0.8) !important;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: 6px;
+    animation: exit-blink 1.5s step-end infinite;
+}
+
+.exit-intro-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.exit-intro-cat {
+    width: clamp(120px, 18vw, 300px);
+    height: auto;
+    object-fit: contain;
+    margin-right: -2vw;
+    z-index: 6;
+}
+
+.exit-intro-title {
+    width: clamp(250px, 45vw, 700px);
+    height: auto;
+    object-fit: contain;
+    margin-left: -2vw;
+    z-index: 5;
+}
+
+.exit-intro-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+
+.exit-intro-option {
+    position: relative;
+    width: clamp(120px, 18vw, 350px);
+    z-index: 5;
+    pointer-events: none;
+}
+
+.exit-intro-option+.exit-intro-option {
+    margin-top: -25%;
+    z-index: 6;
+}
+
+.exit-intro-option-img {
+    width: 100%;
+    height: auto;
+}
+
+.exit-intro-cursor {
+    position: absolute;
+    left: -15%;
+    top: 50%;
+    transform: translateY(-50%) scale(2.5);
+    width: 40%;
+    height: auto;
+    pointer-events: none;
+}
+
+.exit-intro-hitbox {
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    width: 80%;
+    height: 70%;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+/* Portrait / Mobile explicitly scaling them way larger */
+@media (max-width: 768px) and (orientation: portrait) {
+    .exit-intro-header {
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .exit-intro-cat {
+        width: clamp(150px, 45vw, 350px);
+        margin-right: 0;
+    }
+
+    .exit-intro-title {
+        width: clamp(280px, 85vw, 700px);
+        margin-left: 0;
+    }
+
+    .exit-intro-option {
+        width: clamp(180px, 50vw, 300px);
+    }
+}
